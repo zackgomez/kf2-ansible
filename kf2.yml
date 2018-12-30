@@ -51,9 +51,9 @@
       env:
         KF_ENABLE_WEB: true
         KF_DISABLE_TAKEOVER: true
-        KF_SERVER_NAME: UNIQUE SERVER NAME
-        KF_ADMIN_PASS: adminpass
-        KF_GAME_PASS: gamepass
+        KF_SERVER_NAME: "{{ server_name }}"
+        KF_ADMIN_PASS: "{{ admin_password }}"
+        KF_GAME_PASS: "{{ game_password }}"
         KF_DIFFICULTY: 2
         KF_GAME_LENGTH: 3
 
