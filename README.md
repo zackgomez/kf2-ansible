@@ -1,8 +1,8 @@
 An ansible script to set up a kf2 server with webadmin for further configuration
 
-edit information in `group_vars/all.yml`
+copy `group_vars/all.yml.dist` to `group_vars/all.yml` and edit file
 
-add machines to inventory file
+add machines to inventory file (one ip per line)
 
 run
 
