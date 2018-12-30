@@ -1,0 +1,62 @@
+---
+- hosts: all
+  remote_user: root
+
+  vars:
+   - kf2_home: /home/kf2
+
+  tasks:
+  - name: Update apt-cache
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Install some packages
+    apt:
+      name: [glances, htop]
+      state: present
+
+  - import_tasks: tasks/docker.yml
+
+  - name: Add kf2 user
+    user:
+      name: kf2
+      group: docker
+      append: yes
+      home: "{{ kf2_home }}"
+
+  - name: add kf2 directories
+    become_user: kf2
+    file:
+      name: "{{ item }}"
+      state: directory
+      owner: kf2
+    with_items:
+      - "{{ kf2_home }}/kf2"
+      - "{{ kf2_home }}/kf2_steamdir"
+
+  - name: kf2 docker
+    docker_container:
+      name: kf2server
+      image: dwurf/docker-kf2
+      pull: true
+      restart_policy: unless-stopped
+      ports: 
+        - "27015:27015/udp"
+        - "7777:7777/udp"
+        - "8080:8080"
+      volumes:
+        - "{{ kf2_home }}/kf2:/home/steam/kf2server"
+        - "{{ kf2_home }}/kf2_steamdir:/home/steam/steam"
+      env:
+        KF_ENABLE_WEB: true
+        KF_DISABLE_TAKEOVER: true
+        KF_SERVER_NAME: UNIQUE SERVER NAME
+        KF_ADMIN_PASS: littlepups
+        KF_GAME_PASS: abc123
+        KF_DIFFICULTY: 2
+        KF_GAME_LENGTH: 3
+
+
+  roles: 
+  - geerlingguy.docker
