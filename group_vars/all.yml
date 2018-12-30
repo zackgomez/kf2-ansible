@@ -1,1 +1,4 @@
----
+server_name: UNIQUE SERVER NAME
+
+admin_password: adminpass
+game_password: gamepass

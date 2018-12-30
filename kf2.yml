@@ -38,7 +38,7 @@
   - name: kf2 docker
     docker_container:
       name: kf2server
-      image: dwurf/docker-kf2
+      image: zackgomez/docker-kf2
       pull: true
       restart_policy: unless-stopped
       ports: 
@@ -52,8 +52,8 @@
         KF_ENABLE_WEB: true
         KF_DISABLE_TAKEOVER: true
         KF_SERVER_NAME: UNIQUE SERVER NAME
-        KF_ADMIN_PASS: littlepups
-        KF_GAME_PASS: abc123
+        KF_ADMIN_PASS: adminpass
+        KF_GAME_PASS: gamepass
         KF_DIFFICULTY: 2
         KF_GAME_LENGTH: 3
 
